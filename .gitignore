@@ -1,0 +1,49 @@
+# ========= Java / Maven =========
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+!.mvn/wrapper/maven-wrapper.conf
+
+# ========= Sensitive Configs =========
+# Do NOT commit sensitive data like credentials
+src/main/resources/application.yml
+
+# ========= IDEs =========
+
+# STS / Eclipse
+.classpath
+.project
+.factorypath
+.settings/
+.apt_generated
+.springBeans
+.sts4-cache
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Visual Studio Code
+.vscode/
+
+# ========= Build =========
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ========= OS-Specific =========
+.DS_Store
+Thumbs.db
+
+# ========= Logs / Dumps =========
+*.log
+*.dump
