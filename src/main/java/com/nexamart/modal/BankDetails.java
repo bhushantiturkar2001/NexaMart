@@ -5,15 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class BankDetails {
 	
-	private String businessName;
-	private String businessEmail;
-	private String businessMobile;
-	private String businessAddress;
-	private String logo;
-	private String banner;
+	private String accountNumber;
+
+	private String accountHolderName;
+
+	private String ifscCode;
+	
 
 }
