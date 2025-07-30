@@ -18,9 +18,11 @@ import org.springframework.stereotype.Service;
 import com.nexamart.config.JwtProvider;
 import com.nexamart.domain.USER_ROLE;
 import com.nexamart.modal.Cart;
+import com.nexamart.modal.Seller;
 import com.nexamart.modal.User;
 import com.nexamart.modal.VerificationCode;
 import com.nexamart.repository.CartRepository;
+import com.nexamart.repository.SellerRepository;
 import com.nexamart.repository.UserRepository;
 import com.nexamart.repository.VerificationCodeRepository;
 import com.nexamart.request.LoginRequest;
@@ -43,20 +45,29 @@ public class AuthServiceImpl implements AuthService {
 	private final JwtProvider jwtProvider;
 	private final EmailService emailService;
 	private final CustomUserServiceImpl customUserServiceImpl;
+	private final SellerRepository sellerRepository;
 
 	@Override
-	public void sentLoginOtp(String email) throws Exception {
-		
+	public void sentLoginOtp(String email, USER_ROLE role) throws Exception {
 
-		String SIGNING_PREFIXS = "signin_";
+		String SIGNING_PREFIXS = "signing_";
+
 		if (email.startsWith(SIGNING_PREFIXS)) {
 
 			email = email.substring(SIGNING_PREFIXS.length());
 			// Validate that user with this email exists
 
-			User user = userRepository.findByEmail(email);
-			if (user == null) {
-				throw new Exception("Provided email is wrong..");
+			if (role.equals(USER_ROLE.ROLE_SELLER)) {
+				Seller seller = sellerRepository.findByEmail(email);
+				if (seller == null) {
+					throw new Exception("Seller not found");
+				}
+
+			} else {
+				User user = userRepository.findByEmail(email);
+				if (user == null) {
+					throw new Exception("User not exist with provided email");
+				}
 			}
 
 		}
@@ -100,7 +111,7 @@ public class AuthServiceImpl implements AuthService {
 
 			createdUser.setEmail(req.getEmail());
 			createdUser.setFullName(req.getFullname());
-			createdUser.setRole(USER_ROLE.ROLE_CUSOMER);
+			createdUser.setRole(USER_ROLE.ROLE_CUSTOMER);
 			createdUser.setMobile("8520852020");
 			createdUser.setPassword(passwordEncoder.encode(req.getOtp()));
 
@@ -114,7 +125,7 @@ public class AuthServiceImpl implements AuthService {
 		// Authenticate user and generate JWT token
 
 		java.util.List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority(USER_ROLE.ROLE_CUSOMER.toString()));
+		authorities.add(new SimpleGrantedAuthority(USER_ROLE.ROLE_CUSTOMER.toString()));
 
 		Authentication authentication = new UsernamePasswordAuthenticationToken(req.getEmail(), null, authorities);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -144,6 +155,14 @@ public class AuthServiceImpl implements AuthService {
 
 	private Authentication authencate(String username, String otp) {
 		UserDetails userDetails = customUserServiceImpl.loadUserByUsername(username);
+		
+		String SELLER_PREFIX = "seller_";
+
+		if (username.startsWith(SELLER_PREFIX)) {
+
+			username = username.substring(SELLER_PREFIX.length());
+
+		}
 
 		if (userDetails == null) {
 			throw new BadCredentialsException("Wrong Username");
