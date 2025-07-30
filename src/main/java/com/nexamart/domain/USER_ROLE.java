@@ -5,7 +5,7 @@ public enum USER_ROLE {
 	
 	ROLE_ADMIN,
 
-	ROLE_CUSOMER,
+	ROLE_CUSTOMER,
 
 	ROLE_SELLER;
 
