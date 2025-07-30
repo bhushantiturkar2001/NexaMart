@@ -42,7 +42,7 @@ public class User {
 	
 	private String mobile;
 	
-	private USER_ROLE role = USER_ROLE.ROLE_CUSOMER; //USER_ROLE.ROLE_CUSOMER this means default is customer
+	private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER; //USER_ROLE.ROLE_CUSOMER this means default is customer
 	
 	@OneToMany
 	private Set<Address> address = new HashSet<>();
