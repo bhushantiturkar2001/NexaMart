@@ -1,5 +1,7 @@
 package com.nexamart.controller;
 
+import java.net.Authenticator.RequestorType;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import com.nexamart.domain.USER_ROLE;
 import com.nexamart.modal.User;
 import com.nexamart.modal.VerificationCode;
 import com.nexamart.repository.UserRepository;
+import com.nexamart.request.LoginOtpRequest;
 import com.nexamart.request.LoginRequest;
 import com.nexamart.response.ApiResponse;
 import com.nexamart.response.AuthResponse;
@@ -34,22 +37,22 @@ public class AuthController {
 		AuthResponse res = new AuthResponse();
 		res.setJwt(jwt);
 		res.setMsg("Registration Succesfull");
-		res.setRole(USER_ROLE.ROLE_CUSOMER);
+		res.setRole(USER_ROLE.ROLE_CUSTOMER);
 
 		return ResponseEntity.ok(res);
 
 	}
 
 	@PostMapping("/sent/login-signup-otp")
-	public ResponseEntity<ApiResponse> sentOtpHandler(@RequestBody VerificationCode req) throws Exception {
-		authService.sentLoginOtp(req.getEmail());
+	public ResponseEntity<ApiResponse> sentOtpHandler(@RequestBody LoginOtpRequest req) throws Exception {
+		authService.sentLoginOtp(req.getEmail(),req.getRole());
 
 		ApiResponse res = new ApiResponse();
 
 		res.setMessage("Otp send succesfully");
 
 		return ResponseEntity.ok(res);
-
+  
 	}
 
 	@PostMapping("/signing")
