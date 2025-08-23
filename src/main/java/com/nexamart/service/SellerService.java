@@ -3,6 +3,7 @@ package com.nexamart.service;
 import java.util.List;
 
 import com.nexamart.domain.AccountStatus;
+import com.nexamart.exception.SellerException;
 import com.nexamart.modal.Seller;
 
 public interface SellerService {
@@ -11,7 +12,7 @@ public interface SellerService {
 
 	Seller createSeller(Seller seller) throws Exception;
 
-	Seller getSellerById(Long id) throws Exception;
+	Seller getSellerById(Long id) throws SellerException;
 
 	Seller getSellerByEmail(String email) throws Exception;
 
