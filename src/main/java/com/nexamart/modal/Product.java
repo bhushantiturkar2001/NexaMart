@@ -1,6 +1,7 @@
 package com.nexamart.modal;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,10 +55,10 @@ public class Product {
 	@ManyToOne
 	private Seller seller;
 
-	private LocalDate createAt;
+	private LocalDateTime createAt;
 
 	// @ElementCollection
-	private String size;
+	private String sizes;
 	
 	@OneToMany(mappedBy = "product")
 	private List<Review> reviews = new ArrayList<>();
