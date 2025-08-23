@@ -30,6 +30,8 @@ public class Coupen {
 	private String code;
 
 	private Double discountPercentage;
+	
+	private LocalDate validStartDate;
 
 	private LocalDate validEndDate;
 
