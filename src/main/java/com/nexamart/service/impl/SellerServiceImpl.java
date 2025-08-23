@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.nexamart.config.JwtProvider;
 import com.nexamart.domain.AccountStatus;
 import com.nexamart.domain.USER_ROLE;
+import com.nexamart.exception.SellerException;
 import com.nexamart.modal.Address;
 import com.nexamart.modal.Seller;
 import com.nexamart.repository.AddressRepository;
@@ -61,8 +62,8 @@ public class SellerServiceImpl implements SellerService {
 	}
 
 	@Override
-	public Seller getSellerById(Long id) throws Exception {
-		return sellerRepository.findById(id).orElseThrow(() -> new Exception("Seller not found with id: " + id));
+	public Seller getSellerById(Long id) throws SellerException {
+		return sellerRepository.findById(id).orElseThrow(() -> new SellerException("Seller not found with id: " + id));
 	}
 
 	@Override
