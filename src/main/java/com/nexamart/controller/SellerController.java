@@ -16,13 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nexamart.domain.AccountStatus;
+import com.nexamart.exception.SellerException;
 import com.nexamart.modal.Seller;
+import com.nexamart.modal.SellerReport;
 import com.nexamart.modal.VerificationCode;
 import com.nexamart.repository.VerificationCodeRepository;
 import com.nexamart.request.LoginRequest;
 import com.nexamart.response.AuthResponse;
 import com.nexamart.service.AuthService;
 import com.nexamart.service.EmailService;
+import com.nexamart.service.SellerReportService;
 import com.nexamart.service.SellerService;
 import com.nexamart.service.impl.SellerServiceImpl;
 import com.nexamart.utils.OtpUtil;
@@ -39,6 +42,7 @@ public class SellerController {
 	private final VerificationCodeRepository verificationCodeRepository;
 	private AuthService authService;
 	private final EmailService emailService;
+	private final SellerReportService sellerReportService;
 
 	@PostMapping("/login")
 	public ResponseEntity<AuthResponse> loginSeller(@RequestBody LoginRequest req) throws Exception {
@@ -88,7 +92,7 @@ public class SellerController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Seller> getSellerById(@PathVariable Long id) throws Exception {
+	public ResponseEntity<Seller> getSellerById(@PathVariable Long id) throws SellerException {
 		Seller seller = sellerService.getSellerById(id);
 		return new ResponseEntity<Seller>(seller, HttpStatus.OK);
 	}
@@ -97,6 +101,14 @@ public class SellerController {
 	public ResponseEntity<Seller> getSellerByJwt(@RequestHeader("Authorization") String jwt) throws Exception {
 		Seller sellerProfile = sellerService.getSellerProfile(jwt);
 		return new ResponseEntity<Seller>(sellerProfile, HttpStatus.OK);
+	}
+	
+	@GetMapping("/report")
+	public ResponseEntity<SellerReport> getSellerReport(@RequestHeader("Authorization") String jwt) throws Exception{
+		
+		Seller seller = sellerService.getSellerProfile(jwt);
+		SellerReport sellerReport = sellerReportService.getSellerReport(seller);
+		return new ResponseEntity<>(sellerReport,HttpStatus.OK);
 	}
 
 	@GetMapping
