@@ -73,6 +73,6 @@ Swagger Ui : http://localhost:5454/swagger-ui/index.html
 👨‍💻 Developed By
 
 Bhushan Titurkar
-Java Developer | Spring Boot | Microservices | React
+Java Developer | Spring Boot |
 
 📧 Open to opportunities
