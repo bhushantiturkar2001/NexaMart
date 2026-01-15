@@ -22,7 +22,7 @@ import com.nexamart.service.CoupenService;
 import com.nexamart.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-
+// admin controller
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/coupens")
