@@ -21,7 +21,7 @@ import com.nexamart.response.SignUpRequest;
 import com.nexamart.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
-
+// Auth controler 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
