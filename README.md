@@ -17,6 +17,7 @@ The application follows mvc architecture principles, ensuring scalability, secur
 8) MySQL
 9) RESTful APIs
 10) Sream Api
+11) Java 8
 
 This project demonstrates my practical knowledge of Java, Spring Boot, Microservices, REST APIs, Authentication, and Frontend integration.
 
