@@ -37,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    // email check
+    // email check and auth service
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final CartRepository cartRepository;
